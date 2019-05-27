@@ -1,10 +1,3 @@
-"""
-Name:Elijah Espiritu
-ID: 018679581
-Instructor: Neal Terrell
-Date: 3/19/19
-Purpose: A Man A Plan, A Canal: Panama
-"""
 import EnglishDictionary
 
 
