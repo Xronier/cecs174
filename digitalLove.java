@@ -1,51 +1,47 @@
 import java.util.Scanner;
-public class digitalLove {
-    public static boolean isIncreasing(int[] values) {
-        for (int i = 0; i < values.length - 1; i++) {
-            // Look to the value one digit over from i and determine if it is less
-            if (values[i] >= values[i + 1]) {
-                return false;
+import java.util.Arrays;
+public class pigLatin {
+    public static void main(String[] args) {
+        String[] userList = userInput();
+        String[] pigLatin = new String[userList.length];
+        int counter = 0;
+        for (String i: userList) {
+            if (i.length() == 1) {
+                pigLatin[counter] = i;
+            }
+            // If word has no vowels, use -1 as a sentinel
+            else if (firstVowel(i) == -1) {
+                String trans = i + "ay";
+                pigLatin[counter] = trans;
+            }
+            else {
+                int firstVowel = firstVowel(i);
+                String ch = i.substring(0, firstVowel);
+                String word = i.substring(firstVowel);
+                String trans = word + ch + "ay";
+                pigLatin[counter] = trans;
+            }
+            counter++;
+        }
+        System.out.println(Arrays.toString(pigLatin).replace("[", "").replace("]", "")
+        .replace(",", ""));
+    }
+
+    private static int firstVowel(String sent) {
+        for (int i = 0; i < sent.length(); i++) {
+            if ( sent.charAt(i) == 'a' || sent.charAt(i) == 'e' || sent.charAt(i) == 'i' || sent.charAt(i) == 'o' ||
+            sent.charAt(i) == 'u') {
+                return i;
             }
         }
-        return true;
+        return -1;
     }
 
-
-    public static int getNumber() {
+    private static String[] userInput() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter a positive number");
-        int userInteger = input.nextInt();
-        // Validation
-        while(userInteger <= 0) {
-            System.out.println("Invalid, enter a positive number");
-            userInteger = input.nextInt();
-        }
-        return userInteger;
-    }
-
-
-    public static int[] getDigits(int number) {
-        // Cast the Math.log10 to an int as it would instead return a double.
-        // Then, add 1 to Math.log10 as the log of 10 always returns the number of digits - 1
-        int[] userArray = new int [(int) Math.log10(number) + 1];
-        for(int i = userArray.length - 1; i >= 0; i--) {
-            // Cut off the rightmost digit of number and assign it to the rightmost index of userArray
-            int rightmostDigit = number % 10;
-            userArray[i] = rightmostDigit;
-            // Divide by 10 to shorten number by 1 digit
-            number /= 10;
-        }
-        return userArray;
-    }
-
-
-    public static void main(String[] args) {
-        int[] userDigits = getDigits(getNumber());
-        if (isIncreasing(userDigits)){
-            System.out.println("Those numbers are in increasing order");
-        }
-        else {
-            System.out.println("Those numbers are not in increasing order");
-        }
+        System.out.println("Enter something to convert to pig latin: ");
+        String userInput = input.nextLine();
+        userInput = userInput.toLowerCase();
+        return userInput.split(" ");
     }
 }
